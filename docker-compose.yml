@@ -1,0 +1,19 @@
+version: "3"
+services:
+    python:
+        build: .
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=US/Central
+        stdin_open: true
+        tty: true
+        container_name: python38_10-32
+        volumes:
+            - '/home/bdroyer/Documents/python38_10-32:/app'
+        #working_dir: /app
+        ports:
+            - '2224:22'
+            - '3001:3001'
+        image: python38_10-32:latest
+        command: sh
