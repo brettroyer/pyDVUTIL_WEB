@@ -4,6 +4,9 @@ from typing import Optional
 
 from nicegui import events, ui
 
+# Credit
+# https://github.com/zauberzeug/nicegui/tree/ee14497b1ee02c8f1dbff43964bc8d639704e116/examples/local_file_picker
+
 
 class local_file_picker(ui.dialog):
 

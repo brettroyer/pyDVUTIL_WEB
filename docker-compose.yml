@@ -8,12 +8,12 @@ services:
             - TZ=US/Central
         stdin_open: true
         tty: true
-        container_name: python38_10-32
+        container_name: python38_10
         volumes:
             - '/home/bdroyer/Documents/python38_10-32:/app'
         #working_dir: /app
         ports:
             - '2224:22'
             - '3001:3001'
-        image: python38_10-32:latest
+        image: python38_10:latest
         command: sh

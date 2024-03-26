@@ -6,6 +6,9 @@ from encoding import EncodeFile
 __basedir__ = os.path.dirname(os.path.abspath(__file__))
 _filename = {'filename': ''}
 
+delete = ui.button()
+
+
 ui.label("Super NiceDVUtil Application!")
 
 
@@ -15,10 +18,12 @@ with ui.dialog().props('full-width') as dialog:
 
 
 async def pick_file() -> None:
+    global delete
     result = await local_file_picker(__basedir__, _filter="*.fhx")
     ui.notify(f'You chose {result}')
     _filename.update(filename=result)
-    delete.enable()
+    if result is not None:
+        delete.enable()
 
 
 def write_to_file(data, outfile):
@@ -65,14 +70,17 @@ def handle_upload(e: events.UploadEventArguments) -> None:
             os.remove(e.name)
 
 
-with ui.row():
-    upload = ui.upload(on_upload=handle_upload).props('accept=.fhx').classes('max-w-full')
+@ui.page('/')
+def index():
+    global delete
+    with ui.row():
+        upload = ui.upload(on_upload=handle_upload).props('accept=.fhx').classes('max-w-full')
 
-with ui.row():
-    ui.button('.fhx', on_click=pick_file, icon='folder')
-    delete = ui.button('', icon='delete')
-    delete.disable()
-    ui.label().bind_text_from(_filename, 'filename')
+    with ui.row():
+        ui.button('.fhx', on_click=pick_file, icon='folder')
+        delete = ui.button('', icon='delete')
+        delete.disable()
+        ui.label().bind_text_from(_filename, 'filename')
 
 
 ui.run(port=3001)
